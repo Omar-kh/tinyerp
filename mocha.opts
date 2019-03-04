@@ -1,0 +1,4 @@
+--require @babel/register
+--require @babel/polyfill
+--file ./backend/src/tests/db_connection.test.js
+--file ./backend/src/tests/db_clean.test.js

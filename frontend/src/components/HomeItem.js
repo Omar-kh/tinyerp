@@ -3,18 +3,17 @@ import mockImg from '../public/box.png';
 
 const HomeItem = ({ itemName }) => {
   return (
-    <div className="column is-one-fifth-desktop is-half-mobile">
-      <div className="is-flex is-horizontally-centered">
-        <figure className="image">
-          <img
-            alt="items"
-            src="https://img.icons8.com/dusk/64/000000/commodity.png"
-          />
-        </figure>
+    <div className="w3-margin w3-card w3-col l5 m12 s12 w3-row w3-text-primary">
+      <div
+        className="w3-col w3-flex-full-center w3-border-right"
+        style={{ width: 128 }}
+      >
+        <img alt="icon" src={mockImg} />
       </div>
-      <p className="has-text-centered is-size-4 is-family-primary has-text-weight-semibold">
-        {itemName}
-      </p>
+      <div className="w3-rest w3-container w3-hover-success w3-vertical-stretch">
+        <h2>{itemName}</h2>
+        <div>Description goes here for each element of the ERP. Lorem... </div>
+      </div>
     </div>
   );
 };

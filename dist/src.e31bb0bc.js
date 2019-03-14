@@ -30584,7 +30584,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Navbar2 = function Navbar2() {
   return _react.default.createElement("div", {
-    className: "w3-bar w3-success w3-padding-10"
+    className: "w3-bar w3-primary w3-padding-10"
   }, _react.default.createElement("a", {
     href: "#",
     className: "w3-bar-item w3-button w3-hover-none w3-hover-text-primary"
@@ -30621,17 +30621,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var HomeItem = function HomeItem(_ref) {
   var itemName = _ref.itemName;
   return _react.default.createElement("div", {
-    className: "column is-one-fifth-desktop is-half-mobile"
+    className: "w3-margin w3-card w3-col l5 m12 s12 w3-row w3-text-primary"
   }, _react.default.createElement("div", {
-    className: "is-flex is-horizontally-centered"
-  }, _react.default.createElement("figure", {
-    className: "image"
+    className: "w3-col w3-flex-full-center w3-border-right",
+    style: {
+      width: 128
+    }
   }, _react.default.createElement("img", {
-    alt: "items",
-    src: "https://img.icons8.com/dusk/64/000000/commodity.png"
-  }))), _react.default.createElement("p", {
-    className: "has-text-centered is-size-4 is-family-primary has-text-weight-semibold"
-  }, itemName));
+    alt: "icon",
+    src: _box.default
+  })), _react.default.createElement("div", {
+    className: "w3-rest w3-container w3-hover-success w3-vertical-stretch"
+  }, _react.default.createElement("h2", null, itemName), _react.default.createElement("div", null, "Description goes here for each element of the ERP. Lorem... ")));
 };
 
 var _default = HomeItem;
@@ -30687,22 +30688,20 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Homescreen)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      homeItems: ['Items', 'Stock', 'Sales', 'POS', 'Orders', 'Payments', 'Deliveries']
+      homeItems: ['Items', 'Stock', 'Sales', 'Orders', 'Payments', 'Deliveries']
     });
 
     _defineProperty(_assertThisInitialized(_this), "render", function () {
       var homeItems = _this.state.homeItems;
       return _react.default.createElement("div", {
-        className: "homescreen w3-row-padding"
+        className: "homescreen w3-row-padding w3-flex-full-center"
       }, _react.default.createElement("div", {
-        className: "w3-twothird"
-      }, _react.default.createElement("div", {
-        className: ""
+        className: "w3-row w3-twothird w3-flex-hcenter w3-multiline"
       }, homeItems.map(function (homeItem) {
         return _react.default.createElement(_HomeItem.default, {
           itemName: homeItem
         });
-      }))));
+      })));
     });
 
     return _this;

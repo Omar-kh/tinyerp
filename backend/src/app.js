@@ -15,6 +15,9 @@ mongoose.connect(config.db_url, { useNewUrlParser: true });
 
 // Using the connection to the
 const db = mongoose.connection;
+db.once('open', () => {
+    console.log('Successfully connected to the database!');
+});
 db.on('error', console.error.bind(console, 'There was an error while connecting'));
 
 // Initialize express
@@ -59,7 +62,7 @@ app.use('/', router);
 
 // Use the error handler in development mode
 if (config.env === 'development') {
-    app.use(errorhandler());
+    app.use(errorHandler());
 }
 
 // Open the server

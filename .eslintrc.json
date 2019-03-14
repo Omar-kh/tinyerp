@@ -1,7 +1,14 @@
 {
-    "plugins": [ "mocha" ],
+    "extends": [
+        "airbnb",
+        "prettier",
+        "prettier/react"
+    ],
     "parser": "babel-eslint",
-    "extends": [ "airbnb" ],
+    "plugins": [
+        "mocha",
+        "react"
+    ],
     "env": {
         "browser": true,
         "node": true,
@@ -14,7 +21,12 @@
         "react/jsx-filename-extension": "off",
         "array-bracket-spacing": "off",
         "linebreak-style": 0,
-        "no-param-reassign": [ "error", { "props": false } ],
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ],
         "mocha/no-exclusive-tests": "error"
     }
 }

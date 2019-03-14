@@ -1,12 +1,24 @@
 import Item from '../models/Item';
 
-export const calcItemPrice = async (itemId, pricelistId) => {
-    const item = await Item.findById(itemId).populate('priceLists').exec();
+export const createItem = async (item) => {
     try {
-        const priceListIndex = item.priceLists.findIndex(searchedList => searchedList._id === pricelistId);
-        const searchedItemIdx = item.priceLists[priceListIndex].findIndex(searchObject => searchObject.item === this);
-        const searchedPrice = item.priceLists[searchedItemIdx].price;
-        return searchedPrice;
+        return await Item.create(item);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export const findItemByName = async (item) => {
+    try {
+        return await Item.findOne({ name: item.name });
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export const findItemById = async (itemId) => {
+    try {
+        return await Item.findById(itemId);
     } catch (error) {
         throw new Error(error.message);
     }

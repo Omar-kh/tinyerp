@@ -1,0 +1,24 @@
+.is-border {
+  border: 1px solid;
+}
+
+.is-fully-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.is-flex-row {
+  width: auto;
+  display: block;
+}
+
+.is-margin-1 {
+  margin: 1rem;
+}
+
+.is-round-button {
+  padding: 1rem;
+  border-radius: 50%;
+}

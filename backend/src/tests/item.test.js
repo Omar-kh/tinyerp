@@ -23,9 +23,10 @@ describe('Item CRUD testing', function () {
             pricelist: myPricelist,
             price: 58
         };
-        const myItem = await Item.findOne({ name: 'myItem' });
+        let myItem = await Item.findOne({ name: 'myItem' });
         myItem.prices.push(myItemPrice);
         await myItem.save();
+        myItem = await Item.findOne({ name: 'myItem' });
         expect(myItem.prices[0].price).to.equal(58);
     });
 });

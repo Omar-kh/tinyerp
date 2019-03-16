@@ -1,33 +1,20 @@
 import React from 'react';
-import Burgermenu from './Burgermenu';
+import { MdMenu } from 'react-icons/md';
 
-const Navbar = () => {
+const Navbar = ({ toggleSidebar }) => {
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
-      <div className="navbar-brand">
-        <a className="navbar-item" href="https://bulma.io">
-          <img
-            alt="Bulma logo"
-            src="https://bulma.io/images/bulma-logo.png"
-            width="112"
-            height="28"
-          />
-        </a>
-        <Burgermenu />
-      </div>
-      <div id="navbarBasicExample" className="navbar-menu">
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-              <a className="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a className="button is-light">Log in</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <div className="w3-bar w3-primary w3-card w3-padding-10">
+      <a
+        href="#"
+        className="w3-bar-item w3-button w3-hover-none w3-hover-text-success"
+        onClick={toggleSidebar}
+      >
+        <MdMenu className="w3-xlarge" />
+      </a>
+      <a className="w3-bar-item w3-button w3-hover-none w3-hover-text-success w3-right">
+        Settings
+      </a>
+    </div>
   );
 };
 

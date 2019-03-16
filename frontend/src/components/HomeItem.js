@@ -3,7 +3,7 @@ import mockImg from '../public/box.png';
 
 const HomeItem = ({ itemName }) => {
   return (
-    <div className="w3-margin w3-card w3-col l5 m12 s12 w3-row w3-text-primary">
+    <div className="w3-margin w3-card w3-col l5 m12 s12 w3-row">
       <div
         className="w3-col w3-flex-full-center w3-border-right"
         style={{ width: 128 }}

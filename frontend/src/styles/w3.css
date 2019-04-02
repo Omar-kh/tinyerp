@@ -240,8 +240,8 @@ a {
 }
 .w3-table,
 .w3-table-all {
-  border-collapse: collapse;
-  border-spacing: 0;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
   width: 100%;
   display: table;
 }

@@ -1,11 +1,3 @@
-.App {
-  display: flex;
-  flex-flow: column;
-  min-height: 100vh;
-}
-.homescreen {
-  flex-grow: 1;
-}
 ﻿/* W3.CSS 4.12 November 2018 by Jan Egil and Borge Refsnes */
 html {
   box-sizing: border-box;
@@ -248,8 +240,8 @@ a {
 }
 .w3-table,
 .w3-table-all {
-  border-collapse: collapse;
-  border-spacing: 0;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
   width: 100%;
   display: table;
 }
@@ -1608,6 +1600,7 @@ a {
 .w3-hover-border-pale-blue:hover {
   border-color: #e7ffff !important;
 }
+
 body {
   color: #2c3e50;
 }
@@ -1616,7 +1609,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
-  background-image: url('baseline-expand_more-24px.72c31a04.svg');
+  background-image: url('/baseline-expand_more-24px.72c31a04.svg');
   background-repeat: no-repeat;
   background-position-x: 100%;
   background-position-y: 10px;
@@ -1649,6 +1642,10 @@ select {
 
 .w3-flex-stretch {
   flex-grow: 1;
+}
+
+.w3-flex-quarter {
+  flex-basis: 25%;
 }
 
 .w3-vertical-stretch {
@@ -1710,6 +1707,11 @@ select {
   color: #95a5a6 !important;
 }
 
+.w3-text-danger,
+.w3-hover-text-danger:hover {
+  color: #e74c3c !important;
+}
+
 .w3-padding-8 {
   padding-top: 8px !important;
   padding-bottom: 8px !important;
@@ -1729,7 +1731,7 @@ select {
 }
 
 .w3-search-input {
-  background-image: url('baseline_search_black_18dp.10df6dae.png');
+  background-image: url('/baseline_search_black_18dp.10df6dae.png');
   background-repeat: no-repeat;
   background-position: right;
 }
@@ -1738,8 +1740,16 @@ select {
   border: 1px solid #2c3e50 !important;
 }
 
+.w3-border-bottom-primary {
+  border-bottom: 1px solid #2c3e50 !important;
+}
+
 .w3-border-secondary {
   border: 1px solid #95a5a6 !important;
+}
+
+.w3-border-danger {
+  border: 1px solid #e74c3c !important;
 }
 
 .w3-border-success,
@@ -1747,3 +1757,7 @@ select {
   border: 1px solid #18bc9c !important;
 }
 
+
+
+
+/*# sourceMappingURL=/src.e31bb0bc.css.map */

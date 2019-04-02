@@ -41,6 +41,10 @@ select {
   flex-grow: 1;
 }
 
+.w3-flex-quarter {
+  flex-basis: 25%;
+}
+
 .w3-vertical-stretch {
   height: 100%;
 }
@@ -100,6 +104,11 @@ select {
   color: #95a5a6 !important;
 }
 
+.w3-text-danger,
+.w3-hover-text-danger:hover {
+  color: #e74c3c !important;
+}
+
 .w3-padding-8 {
   padding-top: 8px !important;
   padding-bottom: 8px !important;
@@ -128,8 +137,16 @@ select {
   border: 1px solid #2c3e50 !important;
 }
 
+.w3-border-bottom-primary {
+  border-bottom: 1px solid #2c3e50 !important;
+}
+
 .w3-border-secondary {
   border: 1px solid #95a5a6 !important;
+}
+
+.w3-border-danger {
+  border: 1px solid #e74c3c !important;
 }
 
 .w3-border-success,

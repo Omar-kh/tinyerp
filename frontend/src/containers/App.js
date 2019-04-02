@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MainContent from './MainContent';
 import FullPage from './FullPage';
 import Navbar from '../components/Navbar';
 import Homescreen from '../components/Homescreen';
 import Docslist from '../components/Docslist';
 import Sidebar from '../components/Sidebar';
+import ItemProperties from '../components/ItemProperties';
 
 class App extends Component {
   constructor() {
@@ -40,8 +41,11 @@ class App extends Component {
           <Navbar toggleSidebar={this.toggleSidebar} />
           <MainContent>
             <Sidebar sideBarStyle={sidebarStyle} />
-            <Route exact path="/" component={Homescreen} />
-            <Route path="/items" component={Docslist} />
+            <Switch>
+              <Route exact path="/" component={Homescreen} />
+              <Route exact path="/items" component={Docslist} />
+              <Route path="/items/:id" component={ItemProperties} />
+            </Switch>
           </MainContent>
         </FullPage>
       </BrowserRouter>

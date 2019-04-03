@@ -9,13 +9,9 @@ itemRouter.post('/items', itemController.postItem);
 
 itemRouter.get('/items/new', itemController.getNewItemForm);
 
-itemRouter.get('/items/:item_id', (req, res, next) => {
-  // Send the item requested in JSON format
-});
+itemRouter.get('/items/:item_id', itemController.getItemById);
 
-itemRouter.put('/items/:item_id', (req, res, next) => {
-  // Take the new information and update the item
-});
+itemRouter.put('/items/:item_id', itemController.putItemById);
 
 itemRouter.delete('/items/:item_id', (req, res, next) => {
   // Check if the item is referenced in another Module

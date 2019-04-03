@@ -34,6 +34,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 // User the body parser
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // Use the logger
 app.use(logger('combined'));
 
@@ -64,6 +65,7 @@ app.use((req, res, next) => {
 // Enable CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'

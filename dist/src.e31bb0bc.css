@@ -1757,6 +1757,10 @@ select {
   border: 1px solid #18bc9c !important;
 }
 
+.w3-capitalize {
+  text-transform: capitalize;
+}
+
 
 
 

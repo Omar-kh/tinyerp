@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { MdEdit } from 'react-icons/md';
 import BoxImg from '../public/box.png';
 
@@ -12,19 +13,48 @@ class ItemProperties extends Component {
   }
 
   async componentDidMount() {
-    const { id } = this.props.match.params;
-    console.log(`http://localhost:4000/items/${id}`);
-    const data = await fetch(`http://localhost:4000/items/${id}`);
-    const result = await data.json();
-    this.setState({
-      fields: result.map(fieldName => {
-        return {
-          name: fieldName,
-          readOnly: id !== 'new'
-        };
-      })
+    // const { id } = this.props.match.params;
+    // console.log(`http://localhost:4000/items/5ca4a58dbc00091820ce4fef`);
+    // const data = await fetch(
+    //   `http://localhost:4000/items/5ca4a58dbc00091820ce4fef`
+    // );
+    // const result = await data.json();
+    // console.log(result);
+    // this.setState({
+    //   fields: result.map(fieldName => {
+    //     return {
+    //       name: fieldName,
+    //       readOnly: false
+    //     };
+    //   })
+    // });
+    // console.log(result);
+    const item = {
+      name: 'thisIsAnItemWithUnit2',
+      description: 'thisIsADescriptionForItemWithUnit2'
+    };
+    const result = await axios({
+      method: 'get',
+      url: 'http://localhost:4000/items/5ca4b7472a1ce725512e8188',
+      data: { item }
     });
     console.log(result);
+    // fetch('http://localhost:4000/items/5ca4a58dbc00091820ce4fef', {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ item })
+    // })
+    //   .then(
+    //     resp => resp.json() // this returns a promise
+    //   )
+    //   .then(repos => {
+    //     console.log(repos);
+    //   })
+    //   .catch(ex => {
+    //     console.error(ex);
+    //   });
   }
 
   render = () => {
@@ -33,7 +63,7 @@ class ItemProperties extends Component {
       return (
         <div className="w3-container w3-margin-bottom">
           <label htmlFor={field.name}>
-            <h4>{field.name}</h4>
+            <h4 className="w3-capitalize">{field.name}</h4>
             <input
               type="text"
               name={field.name}

@@ -36612,24 +36612,6 @@ function _asyncToGenerator(fn) {
 }
 
 module.exports = _asyncToGenerator;
-},{}],"../../node_modules/@babel/runtime/helpers/createClass.js":[function(require,module,exports) {
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-module.exports = _createClass;
 },{}],"../../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
@@ -38275,7 +38257,171 @@ module.exports.default = axios;
 
 },{"./utils":"../../node_modules/axios/lib/utils.js","./helpers/bind":"../../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../../node_modules/axios/lib/core/Axios.js","./defaults":"../../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../../node_modules/axios/lib/helpers/spread.js"}],"../../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../../node_modules/axios/lib/axios.js"}],"components/ItemProperties.js":[function(require,module,exports) {
+},{"./lib/axios":"../../node_modules/axios/lib/axios.js"}],"components/DocPropsElement.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DocPropsElement = function DocPropsElement(_ref) {
+  var fieldData = _ref.fieldData;
+  return _react.default.createElement("div", {
+    className: "w3-container w3-margin-bottom"
+  }, _react.default.createElement("label", {
+    htmlFor: fieldData.name
+  }, _react.default.createElement("h4", {
+    className: "w3-capitalize"
+  }, fieldData.name), _react.default.createElement("input", {
+    type: "text",
+    name: fieldData.name,
+    id: fieldData.name,
+    className: "w3-input w3-round w3-border-primary w3-text-primary",
+    readOnly: false,
+    value: fieldData.value
+  })));
+};
+
+var _default = DocPropsElement;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"components/DocProps.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _DocPropsElement = _interopRequireDefault(require("./DocPropsElement"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DocProps =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(DocProps, _Component);
+
+  function DocProps(_ref) {
+    var _this;
+
+    var _fields = _ref.fields;
+    (0, _classCallCheck2.default)(this, DocProps);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DocProps).call(this));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "render", function () {
+      var fields = _this.state.fields;
+      return _react.default.createElement("div", {
+        className: "w3-section w3-col l8 m10 s11 w3-card w3-row w3-flex w3-flex-column w3-flex-full-center"
+      }, _react.default.createElement("div", {
+        className: "w3-section"
+      }, _react.default.createElement("h2", {
+        className: "w3-center"
+      }, "Properties")), _react.default.createElement("div", {
+        className: "w3-col l6 m8 w3-margin-bottom"
+      }, fields.map(function (field) {
+        return _react.default.createElement(_DocPropsElement.default, {
+          fieldData: field
+        });
+      })), _react.default.createElement("div", {
+        className: "w3-bar w3-center w3-margin-bottom"
+      }, _react.default.createElement("div", {
+        className: "w3-border-primary w3-hover-primary w3-round w3-button w3-margin"
+      }, "Modify item"), _react.default.createElement("div", {
+        className: "w3-button w3-text-danger w3-hover-danger w3-border-danger w3-round w3-margin"
+      }, "Delete item")));
+    });
+    _this.state = {
+      fields: _fields
+    };
+    return _this;
+  }
+
+  return DocProps;
+}(_react.Component);
+
+var _default = DocProps;
+exports.default = _default;
+},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","./DocPropsElement":"components/DocPropsElement.js"}],"components/DocHistoryElement.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _md = require("react-icons/md");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DocHistoryElement = function DocHistoryElement(_ref) {
+  var historyInfo = _ref.historyInfo;
+  return _react.default.createElement("li", {
+    className: "w3-bar w3-border-0 w3-margin-bottom"
+  }, _react.default.createElement(_md.MdEdit, {
+    className: "w3-text-primary w3-margin-right"
+  }), "Changed ", historyInfo.changedProperty, " to \"Something\"", _react.default.createElement("span", {
+    className: "w3-right w3-text-secondary"
+  }, _react.default.createElement("em", null, historyInfo.author, ", ", historyInfo.changeDate)));
+};
+
+var _default = DocHistoryElement;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-icons/md":"../../node_modules/react-icons/md/index.js"}],"components/DocHistory.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _DocHistoryElement = _interopRequireDefault(require("./DocHistoryElement"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DocHistory = function DocHistory(_ref) {
+  var history = _ref.history;
+  return _react.default.createElement("div", {
+    className: "w3-section w3-col l8 m10 s11 w3-card w3-row w3-flex w3-flex-column w3-flex-full-center"
+  }, _react.default.createElement("div", {
+    className: "w3-section"
+  }, _react.default.createElement("h2", {
+    className: "w3-center"
+  }, "Change history")), _react.default.createElement("ul", {
+    className: "w3-section w3-ul w3-col l6 m10 s11"
+  }, history.map(function (historyElem) {
+    return _react.default.createElement(_DocHistoryElement.default, {
+      historyInfo: historyElem
+    });
+  })));
+};
+
+var _default = DocHistory;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","./DocHistoryElement":"components/DocHistoryElement.js"}],"components/DocView.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38288,8 +38434,6 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
 var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
@@ -38305,42 +38449,81 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _md = require("react-icons/md");
-
 var _box = _interopRequireDefault(require("../public/box.png"));
+
+var _DocProps = _interopRequireDefault(require("./DocProps"));
+
+var _DocHistory = _interopRequireDefault(require("./DocHistory"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ItemProperties =
+var DocView =
 /*#__PURE__*/
 function (_Component) {
-  (0, _inherits2.default)(ItemProperties, _Component);
+  (0, _inherits2.default)(DocView, _Component);
 
-  function ItemProperties() {
+  function DocView() {
     var _this;
 
-    (0, _classCallCheck2.default)(this, ItemProperties);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ItemProperties).call(this));
+    (0, _classCallCheck2.default)(this, DocView);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DocView).call(this));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "componentDidMount",
+    /*#__PURE__*/
+    (0, _asyncToGenerator2.default)(
+    /*#__PURE__*/
+    _regenerator.default.mark(function _callee() {
+      var docId, _ref2, data, fields;
+
+      return _regenerator.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              docId = _this.props.match.params.docId;
+              _context.next = 3;
+              return (0, _axios.default)({
+                method: 'get',
+                url: "http://localhost:4000/items/".concat(docId)
+              });
+
+            case 3:
+              _ref2 = _context.sent;
+              data = _ref2.data;
+
+              if (docId === 'new') {
+                _this.setState({
+                  fields: data.map(function (key) {
+                    return {
+                      name: key,
+                      value: ''
+                    };
+                  })
+                });
+              } else {
+                fields = data ? Object.keys(data).map(function (key) {
+                  return {
+                    name: key,
+                    value: data[key]
+                  };
+                }) : ['No document found for this id'];
+
+                _this.setState({
+                  fields: fields
+                });
+              }
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "render", function () {
-      var fields = _this.state.fields;
-      var itemProperties = fields.map(function (field) {
-        return _react.default.createElement("div", {
-          className: "w3-container w3-margin-bottom"
-        }, _react.default.createElement("label", {
-          htmlFor: field.name
-        }, _react.default.createElement("h4", {
-          className: "w3-capitalize"
-        }, field.name), _react.default.createElement("input", {
-          type: "text",
-          name: field.name,
-          id: field.name,
-          className: "w3-input w3-round w3-border-primary w3-text-primary",
-          readOnly: false,
-          value: "Something should be displayed here"
-        })));
-      });
+      var _this$state = _this.state,
+          fields = _this$state.fields,
+          history = _this$state.history;
       return _react.default.createElement("div", {
         className: "w3-row w3-flex w3-flex-column w3-flex-full-center w3-padding-64"
       }, _react.default.createElement("div", {
@@ -38350,47 +38533,11 @@ function (_Component) {
         src: _box.default
       }), _react.default.createElement("h1", {
         className: "w3-center"
-      }, "Item")), _react.default.createElement("div", {
-        className: "w3-section w3-col l8 m10 s11 w3-card w3-row w3-flex w3-flex-column w3-flex-full-center"
-      }, _react.default.createElement("div", {
-        className: "w3-section"
-      }, _react.default.createElement("h2", {
-        className: "w3-center"
-      }, "Properties")), _react.default.createElement("div", {
-        className: "w3-col l6 m8 w3-margin-bottom"
-      }, fields ? itemProperties : 'Loading...'), _react.default.createElement("div", {
-        className: "w3-bar w3-center w3-margin-bottom"
-      }, _react.default.createElement("div", {
-        className: "w3-border-primary w3-hover-primary w3-round w3-button w3-margin"
-      }, "Modify item"), _react.default.createElement("div", {
-        className: "w3-button w3-text-danger w3-hover-danger w3-border-danger w3-round w3-margin"
-      }, "Delete item"))), _react.default.createElement("div", {
-        className: "w3-section w3-col l8 m10 s11 w3-card w3-row w3-flex w3-flex-column w3-flex-full-center"
-      }, _react.default.createElement("div", {
-        className: "w3-section"
-      }, _react.default.createElement("h2", {
-        className: "w3-center"
-      }, "Change history")), _react.default.createElement("ul", {
-        className: "w3-section w3-ul w3-col l6 m10 s11"
-      }, _react.default.createElement("li", {
-        className: "w3-bar w3-border-0 w3-margin-bottom"
-      }, _react.default.createElement(_md.MdEdit, {
-        className: "w3-text-primary w3-margin-right"
-      }), "Changed Property 1 to \"Something\"", _react.default.createElement("span", {
-        className: "w3-right w3-text-secondary"
-      }, _react.default.createElement("em", null, "Administrator, 1 week ago"))), _react.default.createElement("li", {
-        className: "w3-bar w3-border-0 w3-margin-bottom"
-      }, _react.default.createElement(_md.MdEdit, {
-        className: "w3-text-primary w3-margin-right"
-      }), "Changed Property 1 to \"Something\"", _react.default.createElement("span", {
-        className: "w3-right w3-text-secondary"
-      }, _react.default.createElement("em", null, "Administrator, 1 week ago"))), _react.default.createElement("li", {
-        className: "w3-bar w3-border-0 w3-margin-bottom"
-      }, _react.default.createElement(_md.MdEdit, {
-        className: "w3-text-primary w3-margin-right"
-      }), "Changed Property 1 to \"Something\"", _react.default.createElement("span", {
-        className: "w3-right w3-text-secondary"
-      }, _react.default.createElement("em", null, "Administrator, 1 week ago"))))));
+      }, "Item")), fields.length ? _react.default.createElement(_DocProps.default, {
+        fields: fields
+      }) : _react.default.createElement("h2", null, "Loading"), history.length ? _react.default.createElement(_DocHistory.default, {
+        history: history
+      }) : null);
     });
     _this.state = {
       fields: [],
@@ -38399,86 +38546,12 @@ function (_Component) {
     return _this;
   }
 
-  (0, _createClass2.default)(ItemProperties, [{
-    key: "componentDidMount",
-    value: function () {
-      var _componentDidMount = (0, _asyncToGenerator2.default)(
-      /*#__PURE__*/
-      _regenerator.default.mark(function _callee() {
-        var item, result;
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                // const { id } = this.props.match.params;
-                // console.log(`http://localhost:4000/items/5ca4a58dbc00091820ce4fef`);
-                // const data = await fetch(
-                //   `http://localhost:4000/items/5ca4a58dbc00091820ce4fef`
-                // );
-                // const result = await data.json();
-                // console.log(result);
-                // this.setState({
-                //   fields: result.map(fieldName => {
-                //     return {
-                //       name: fieldName,
-                //       readOnly: false
-                //     };
-                //   })
-                // });
-                // console.log(result);
-                item = {
-                  name: 'thisIsAnItemWithUnit2',
-                  description: 'thisIsADescriptionForItemWithUnit2'
-                };
-                _context.next = 3;
-                return (0, _axios.default)({
-                  method: 'get',
-                  url: 'http://localhost:4000/items/5ca4b7472a1ce725512e8188',
-                  data: {
-                    item: item
-                  }
-                });
-
-              case 3:
-                result = _context.sent;
-                console.log(result); // fetch('http://localhost:4000/items/5ca4a58dbc00091820ce4fef', {
-                //   method: 'PUT',
-                //   headers: {
-                //     'Content-Type': 'application/json'
-                //   },
-                //   body: JSON.stringify({ item })
-                // })
-                //   .then(
-                //     resp => resp.json() // this returns a promise
-                //   )
-                //   .then(repos => {
-                //     console.log(repos);
-                //   })
-                //   .catch(ex => {
-                //     console.error(ex);
-                //   });
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      function componentDidMount() {
-        return _componentDidMount.apply(this, arguments);
-      }
-
-      return componentDidMount;
-    }()
-  }]);
-  return ItemProperties;
+  return DocView;
 }(_react.Component);
 
-var _default = ItemProperties;
+var _default = DocView;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../../node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","react-icons/md":"../../node_modules/react-icons/md/index.js","../public/box.png":"public/box.png"}],"containers/App.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","../public/box.png":"public/box.png","./DocProps":"components/DocProps.js","./DocHistory":"components/DocHistory.js"}],"containers/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38514,7 +38587,7 @@ var _Docslist = _interopRequireDefault(require("../components/Docslist"));
 
 var _Sidebar = _interopRequireDefault(require("../components/Sidebar"));
 
-var _ItemProperties = _interopRequireDefault(require("../components/ItemProperties"));
+var _DocView = _interopRequireDefault(require("../components/DocView"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -38557,8 +38630,8 @@ function (_Component) {
         path: "/items",
         component: _Docslist.default
       }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/items/:id",
-        component: _ItemProperties.default
+        path: "/items/:docId",
+        component: _DocView.default
       })))));
     });
     _this.state = {
@@ -38574,7 +38647,7 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./MainContent":"containers/MainContent.js","./FullPage":"containers/FullPage.js","../components/Navbar":"components/Navbar.js","../components/Homescreen":"components/Homescreen.js","../components/Docslist":"components/Docslist.js","../components/Sidebar":"components/Sidebar.js","../components/ItemProperties":"components/ItemProperties.js"}],"index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./MainContent":"containers/MainContent.js","./FullPage":"containers/FullPage.js","../components/Navbar":"components/Navbar.js","../components/Homescreen":"components/Homescreen.js","../components/Docslist":"components/Docslist.js","../components/Sidebar":"components/Sidebar.js","../components/DocView":"components/DocView.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -38616,7 +38689,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60625" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49616" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

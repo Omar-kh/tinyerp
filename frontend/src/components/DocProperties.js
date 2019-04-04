@@ -3,7 +3,7 @@ import axios from 'axios';
 import { MdEdit } from 'react-icons/md';
 import BoxImg from '../public/box.png';
 
-class ItemProperties extends Component {
+class DocProperties extends Component {
   constructor() {
     super();
     this.state = {
@@ -131,4 +131,4 @@ class ItemProperties extends Component {
   };
 }
 
-export default ItemProperties;
+export default DocProperties;

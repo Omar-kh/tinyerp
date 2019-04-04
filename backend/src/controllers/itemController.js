@@ -19,6 +19,17 @@ export const getAllItems = async (req, res, next) => {
   }
 };
 
+export const getItemById = async (req, res, next) => {
+  const { item_id } = req.params;
+  try {
+    const itemFound = await findItemById(item_id);
+    console.log(itemFound.toJSON());
+    res.json(itemFound);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const postItem = async (req, res, next) => {
   const { item } = req.body;
   const itemUnit = await findUnitById('5ca4b7472a1ce725512e8188');
@@ -35,16 +46,6 @@ export const getNewItemForm = async (req, res, next) => {
   try {
     const formFields = await getItemKeys();
     res.json(formFields);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getItemById = async (req, res, next) => {
-  const { item_id } = req.params;
-  try {
-    const itemFound = await findItemById(item_id);
-    res.json(itemFound);
   } catch (error) {
     next(error);
   }

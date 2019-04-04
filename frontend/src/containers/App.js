@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Homescreen from '../components/Homescreen';
 import Docslist from '../components/Docslist';
 import Sidebar from '../components/Sidebar';
-import ItemProperties from '../components/ItemProperties';
+import DocView from '../components/DocView';
 
 class App extends Component {
   constructor() {
@@ -44,7 +44,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Homescreen} />
               <Route exact path="/items" component={Docslist} />
-              <Route path="/items/:id" component={ItemProperties} />
+              <Route path="/items/:docId" component={DocView} />
             </Switch>
           </MainContent>
         </FullPage>

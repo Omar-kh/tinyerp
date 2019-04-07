@@ -1,4 +1,4 @@
-import * as itemService from './item.service';
+import * as articleService from './article.service';
 import * as unitService from './unit.service';
 
-export { itemService, unitService };
+export { articleService, unitService };

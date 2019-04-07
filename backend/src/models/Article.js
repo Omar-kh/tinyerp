@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const itemSchema = new mongoose.Schema({
+const articleSchema = new mongoose.Schema({
   name: String,
   unit: {
     type: mongoose.Schema.Types.ObjectId,
@@ -23,4 +23,4 @@ const itemSchema = new mongoose.Schema({
   changeHistory: [{ changedProperty: String, changeDate: Date }]
 });
 
-export default mongoose.model('Item', itemSchema);
+export default mongoose.model('Article', articleSchema);

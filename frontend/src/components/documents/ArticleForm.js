@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import DocPropsElement from './DocPropsElement';
 
 class DocProps extends Component {
-  constructor({ fields }) {
+  constructor() {
     super();
     this.state = {
-      fields
+      fields: []
     };
   }
+
+  componentDidMount = async () => {
+    const { docId } = this.props;
+    try {
+      const { data } = await axios({
+        method: 'get',
+        url: `http://localhost:4000/articles/${docId}`
+      });
+      const fields =
+        docId === 'new'
+          ? data
+          : data.filter(field => {
+              return field.name !== 'changeHistory';
+            });
+      this.setState({
+        fields
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render = () => {
     const { fields } = this.state;
@@ -17,9 +39,13 @@ class DocProps extends Component {
           <h2 className="w3-center">Properties</h2>
         </div>
         <div className="w3-col l6 m8 w3-margin-bottom">
-          {fields.map(field => {
-            return <DocPropsElement fieldData={field} />;
-          })}
+          {fields.length ? (
+            fields.map(field => {
+              return <DocPropsElement fieldData={field} />;
+            })
+          ) : (
+            <h2>Loading...</h2>
+          )}
         </div>
         <div className="w3-bar w3-center w3-margin-bottom">
           <div className="w3-border-primary w3-hover-primary w3-round w3-button w3-margin">

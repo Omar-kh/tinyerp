@@ -1,4 +1,4 @@
-import * as itemController from './itemController';
+import * as articleController from './articleController';
 import * as unitController from './unitController';
 
-export { itemController, unitController };
+export { articleController, unitController };

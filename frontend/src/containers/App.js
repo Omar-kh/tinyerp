@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Homescreen from '../components/Homescreen';
 import Docslist from '../components/Docslist';
 import Sidebar from '../components/Sidebar';
-import DocView from '../components/DocView';
+import DocView from '../components/documents/DocView';
 
 class App extends Component {
   constructor() {
@@ -43,8 +43,8 @@ class App extends Component {
             <Sidebar sideBarStyle={sidebarStyle} />
             <Switch>
               <Route exact path="/" component={Homescreen} />
-              <Route exact path="/items" component={Docslist} />
-              <Route path="/items/:docId" component={DocView} />
+              <Route exact path="/:documents" component={Docslist} />
+              <Route path="/:documents/:docId" component={DocView} />
             </Switch>
           </MainContent>
         </FullPage>

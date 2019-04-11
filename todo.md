@@ -20,3 +20,5 @@
   - [ ] npm install --save-dev mocha
 
 Vscode sync github token: 7486ec40c96a4e63fdeb3fcfd4c95d69f1851f08
+
+Vscode sync github gist: 88889d0cc404a7a59164b3ddef34666d

@@ -38283,13 +38283,63 @@ var DocPropsElement = function DocPropsElement(_ref) {
     id: fieldData.name,
     className: "w3-input w3-round w3-border-primary w3-text-primary",
     readOnly: false,
-    value: fieldData.value
+    value: fieldData.value ? fieldData.value : undefined
   })));
 };
 
 var _default = DocPropsElement;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"components/documents/ArticleForm.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js"}],"components/documents/TestComponent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var RenderSomething =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(RenderSomething, _Component);
+
+  function RenderSomething() {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, RenderSomething);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(RenderSomething).call(this));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "render", function () {
+      return _react.default.createElement("h2", null, "This is your prop");
+    });
+    _this.state = {
+      something: []
+    };
+    return _this;
+  }
+
+  return RenderSomething;
+}((0, _react.Component)());
+
+var _default = RenderSomething;
+exports.default = _default;
+},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js"}],"components/documents/ArticleForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38319,20 +38369,23 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _DocPropsElement = _interopRequireDefault(require("./DocPropsElement"));
 
+var _TestComponent = _interopRequireDefault(require("./TestComponent"));
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import FormSelectField from './FormSelectField';
 var DocProps =
 /*#__PURE__*/
 function (_Component) {
   (0, _inherits2.default)(DocProps, _Component);
 
-  function DocProps() {
+  function DocProps(props) {
     var _this;
 
     (0, _classCallCheck2.default)(this, DocProps);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DocProps).call(this));
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DocProps).call(this, props));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "componentDidMount",
     /*#__PURE__*/
     (0, _asyncToGenerator2.default)(
@@ -38378,6 +38431,12 @@ function (_Component) {
         }
       }, _callee, null, [[1, 10]]);
     })));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "grabFieldByName", function (fieldName) {
+      var fields = _this.state.fields;
+      return fields.find(function (field) {
+        return field.name === fieldName;
+      });
+    });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "render", function () {
       var fields = _this.state.fields;
       return _react.default.createElement("div", {
@@ -38389,9 +38448,9 @@ function (_Component) {
       }, "Properties")), _react.default.createElement("div", {
         className: "w3-col l6 m8 w3-margin-bottom"
       }, fields.length ? fields.map(function (field) {
-        return _react.default.createElement(_DocPropsElement.default, {
-          fieldData: field
-        });
+        return _react.default.createElement("div", null, _react.default.createElement(_DocPropsElement.default, {
+          fieldData: _this.grabFieldByName(field.name)
+        }), _react.default.createElement(_TestComponent.default, null));
       }) : _react.default.createElement("h2", null, "Loading...")), _react.default.createElement("div", {
         className: "w3-bar w3-center w3-margin-bottom"
       }, _react.default.createElement("div", {
@@ -38411,7 +38470,7 @@ function (_Component) {
 
 var _default = DocProps;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","./DocPropsElement":"components/documents/DocPropsElement.js"}],"components/documents/InvoiceForm.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","./DocPropsElement":"components/documents/DocPropsElement.js","./TestComponent":"components/documents/TestComponent.js"}],"components/documents/InvoiceForm.js":[function(require,module,exports) {
 
 },{}],"components/documents/OrderForm.js":[function(require,module,exports) {
 
@@ -38770,7 +38829,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57951" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64401" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

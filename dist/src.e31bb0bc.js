@@ -38289,13 +38289,17 @@ var DocPropsElement = function DocPropsElement(_ref) {
 
 var _default = DocPropsElement;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"components/documents/TestComponent.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js"}],"components/documents/FormSelectField.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
@@ -38311,35 +38315,94 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var RenderSomething =
+var FormSelectField =
 /*#__PURE__*/
 function (_Component) {
-  (0, _inherits2.default)(RenderSomething, _Component);
+  (0, _inherits2.default)(FormSelectField, _Component);
 
-  function RenderSomething() {
+  function FormSelectField() {
     var _this;
 
-    (0, _classCallCheck2.default)(this, RenderSomething);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(RenderSomething).call(this));
+    (0, _classCallCheck2.default)(this, FormSelectField);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(FormSelectField).call(this));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "componentDidMount",
+    /*#__PURE__*/
+    (0, _asyncToGenerator2.default)(
+    /*#__PURE__*/
+    _regenerator.default.mark(function _callee() {
+      var documents, _ref2, data;
+
+      return _regenerator.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              documents = _this.props.documents;
+              _context.prev = 1;
+              _context.next = 4;
+              return (0, _axios.default)({
+                method: 'get',
+                url: "http://localhost:4000/".concat(documents)
+              });
+
+            case 4:
+              _ref2 = _context.sent;
+              data = _ref2.data;
+
+              _this.setState({
+                options: data
+              });
+
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              console.log(_context.t0.message);
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 9]]);
+    })));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "render", function () {
-      return _react.default.createElement("h2", null, "This is your prop");
+      var options = _this.state.options;
+      console.log(options);
+      var _this$props = _this.props,
+          subFields = _this$props.subFields,
+          fieldDisabled = _this$props.fieldDisabled;
+      return subFields.map(function (subField) {
+        return _react.default.createElement("select", {
+          disabled: fieldDisabled,
+          type: "text",
+          className: "w3-select w3-round w3-border-primary w3-full-focus w3-col w3-quarter w3-margin"
+        }, options.map(function (option) {
+          return _react.default.createElement("option", {
+            value: option.name
+          }, option.name);
+        }));
+      });
     });
     _this.state = {
-      something: []
+      options: []
     };
     return _this;
   }
 
-  return RenderSomething;
-}((0, _react.Component)());
+  return FormSelectField;
+}(_react.Component);
 
-var _default = RenderSomething;
+var _default = FormSelectField;
 exports.default = _default;
-},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js"}],"components/documents/ArticleForm.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js"}],"components/documents/ArticleForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38369,23 +38432,22 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _DocPropsElement = _interopRequireDefault(require("./DocPropsElement"));
 
-var _TestComponent = _interopRequireDefault(require("./TestComponent"));
+var _FormSelectField = _interopRequireDefault(require("./FormSelectField"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import FormSelectField from './FormSelectField';
 var DocProps =
 /*#__PURE__*/
 function (_Component) {
   (0, _inherits2.default)(DocProps, _Component);
 
-  function DocProps(props) {
+  function DocProps() {
     var _this;
 
     (0, _classCallCheck2.default)(this, DocProps);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DocProps).call(this, props));
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DocProps).call(this));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "componentDidMount",
     /*#__PURE__*/
     (0, _asyncToGenerator2.default)(
@@ -38450,7 +38512,11 @@ function (_Component) {
       }, fields.length ? fields.map(function (field) {
         return _react.default.createElement("div", null, _react.default.createElement(_DocPropsElement.default, {
           fieldData: _this.grabFieldByName(field.name)
-        }), _react.default.createElement(_TestComponent.default, null));
+        }), _react.default.createElement(_FormSelectField.default, {
+          subFields: [1, 2, 3, 4],
+          fieldDisabled: false,
+          documents: "articles"
+        }));
       }) : _react.default.createElement("h2", null, "Loading...")), _react.default.createElement("div", {
         className: "w3-bar w3-center w3-margin-bottom"
       }, _react.default.createElement("div", {
@@ -38470,7 +38536,7 @@ function (_Component) {
 
 var _default = DocProps;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","./DocPropsElement":"components/documents/DocPropsElement.js","./TestComponent":"components/documents/TestComponent.js"}],"components/documents/InvoiceForm.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","./DocPropsElement":"components/documents/DocPropsElement.js","./FormSelectField":"components/documents/FormSelectField.js"}],"components/documents/InvoiceForm.js":[function(require,module,exports) {
 
 },{}],"components/documents/OrderForm.js":[function(require,module,exports) {
 
@@ -38829,7 +38895,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64401" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50047" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

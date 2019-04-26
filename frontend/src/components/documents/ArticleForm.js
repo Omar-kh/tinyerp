@@ -46,6 +46,7 @@ class DocProps extends Component {
         </div>
         <div className="w3-col l6 m8 w3-margin-bottom">
           {fields.length ? (
+            /* (
             fields.map(field => {
               return (
                 <div>
@@ -53,13 +54,20 @@ class DocProps extends Component {
                     fieldData={this.grabFieldByName(field.name)}
                   />
                   <FormSelectField
-                    subFields={[1, 2, 3, 4]}
+                    subFields={[1]}
                     fieldDisabled={false}
                     documents="articles"
                   />
                 </div>
               );
             })
+            ) */
+            <div>
+              <DocPropsElement fieldData={this.grabFieldByName('name')} />
+              <DocPropsElement
+                fieldData={this.grabFieldByName('description')}
+              />
+            </div>
           ) : (
             <h2>Loading...</h2>
           )}

@@ -30,15 +30,24 @@ class FormSelectField extends Component {
     const { subFields, fieldDisabled } = this.props;
     return subFields.map(subField => {
       return (
-        <select
-          disabled={fieldDisabled}
-          type="text"
-          className="w3-select w3-round w3-border-primary w3-full-focus w3-col w3-quarter w3-margin"
-        >
-          {options.map(option => {
-            return <option value={option.name}>{option.name}</option>;
-          })}
-        </select>
+        <div className="w3-row w3-container w3-flex w3-flex-full-center">
+          <div className="w3-col s7">
+            <select
+              disabled={fieldDisabled}
+              type="text"
+              className="w3-select w3-padding w3-text-primary w3-round w3-border-primary w3-full-focus"
+            >
+              {options.map(option => {
+                return <option value={option.name}>{option.name}</option>;
+              })}
+            </select>
+          </div>
+          <div className="w3-col s5">
+            <div className="w3-button w3-text-danger w3-hover-danger w3-border-danger w3-round w3-right">
+              Remove filter
+            </div>
+          </div>
+        </div>
       );
     });
   };

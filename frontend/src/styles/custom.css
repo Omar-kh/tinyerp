@@ -9,7 +9,11 @@ select {
   background-image: url('../public/baseline-expand_more-24px.svg');
   background-repeat: no-repeat;
   background-position-x: 100%;
-  background-position-y: 10px;
+  background-position-y: 55%;
+}
+
+.w3-select {
+  padding: 0;
 }
 
 .w3-flex {

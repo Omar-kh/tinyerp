@@ -38380,15 +38380,23 @@ function (_Component) {
           subFields = _this$props.subFields,
           fieldDisabled = _this$props.fieldDisabled;
       return subFields.map(function (subField) {
-        return _react.default.createElement("select", {
+        return _react.default.createElement("div", {
+          className: "w3-row w3-container w3-flex w3-flex-full-center"
+        }, _react.default.createElement("div", {
+          className: "w3-col s7"
+        }, _react.default.createElement("select", {
           disabled: fieldDisabled,
           type: "text",
-          className: "w3-select w3-round w3-border-primary w3-full-focus w3-col w3-quarter w3-margin"
+          className: "w3-select w3-padding w3-text-primary w3-round w3-border-primary w3-full-focus"
         }, options.map(function (option) {
           return _react.default.createElement("option", {
             value: option.name
           }, option.name);
-        }));
+        }))), _react.default.createElement("div", {
+          className: "w3-col s5"
+        }, _react.default.createElement("div", {
+          className: "w3-button w3-text-danger w3-hover-danger w3-border-danger w3-round w3-right"
+        }, "Remove filter")));
       });
     });
     _this.state = {
@@ -38509,15 +38517,28 @@ function (_Component) {
         className: "w3-center"
       }, "Properties")), _react.default.createElement("div", {
         className: "w3-col l6 m8 w3-margin-bottom"
-      }, fields.length ? fields.map(function (field) {
-        return _react.default.createElement("div", null, _react.default.createElement(_DocPropsElement.default, {
-          fieldData: _this.grabFieldByName(field.name)
-        }), _react.default.createElement(_FormSelectField.default, {
-          subFields: [1, 2, 3, 4],
-          fieldDisabled: false,
-          documents: "articles"
-        }));
-      }) : _react.default.createElement("h2", null, "Loading...")), _react.default.createElement("div", {
+      }, fields.length ?
+      /* (
+      fields.map(field => {
+        return (
+          <div>
+            <DocPropsElement
+              fieldData={this.grabFieldByName(field.name)}
+            />
+            <FormSelectField
+              subFields={[1]}
+              fieldDisabled={false}
+              documents="articles"
+            />
+          </div>
+        );
+      })
+      ) */
+      _react.default.createElement("div", null, _react.default.createElement(_DocPropsElement.default, {
+        fieldData: _this.grabFieldByName('name')
+      }), _react.default.createElement(_DocPropsElement.default, {
+        fieldData: _this.grabFieldByName('description')
+      })) : _react.default.createElement("h2", null, "Loading...")), _react.default.createElement("div", {
         className: "w3-bar w3-center w3-margin-bottom"
       }, _react.default.createElement("div", {
         className: "w3-border-primary w3-hover-primary w3-round w3-button w3-margin"
@@ -38895,7 +38916,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50047" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54551" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

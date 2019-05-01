@@ -38270,14 +38270,15 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var DocPropsElement = function DocPropsElement(_ref) {
-  var fieldData = _ref.fieldData;
+  var fieldData = _ref.fieldData,
+      fieldTitle = _ref.fieldTitle;
   return _react.default.createElement("div", {
-    className: "w3-container w3-margin-bottom"
-  }, _react.default.createElement("label", {
-    htmlFor: fieldData.name
+    className: "w3-margin-bottom"
   }, _react.default.createElement("h4", {
     className: "w3-capitalize"
-  }, fieldData.name), _react.default.createElement("input", {
+  }, fieldTitle), _react.default.createElement("label", {
+    htmlFor: fieldData.name
+  }, _react.default.createElement("input", {
     type: "text",
     name: fieldData.name,
     id: fieldData.name,
@@ -38377,27 +38378,38 @@ function (_Component) {
       var options = _this.state.options;
       console.log(options);
       var _this$props = _this.props,
-          subFields = _this$props.subFields,
-          fieldDisabled = _this$props.fieldDisabled;
-      return subFields.map(function (subField) {
+          fieldDisabled = _this$props.fieldDisabled,
+          fieldTitle = _this$props.fieldTitle,
+          subFields = _this$props.subFields;
+      return _react.default.createElement("div", {
+        className: "w3-margin-bottom"
+      }, _react.default.createElement("h4", {
+        className: "w3-capitalize"
+      }, fieldTitle), subFields.map(function (subField) {
         return _react.default.createElement("div", {
-          className: "w3-row w3-container w3-flex w3-flex-full-center"
+          className: "w3-row w3-flex w3-flex-full-center w3-margin-bottom"
         }, _react.default.createElement("div", {
           className: "w3-col s7"
         }, _react.default.createElement("select", {
+          value: subField,
           disabled: fieldDisabled,
           type: "text",
-          className: "w3-select w3-padding w3-text-primary w3-round w3-border-primary w3-full-focus"
+          className: "w3-select w3-padding w3-text-primary w3-round w3-border-primary w3-full-focus",
+          onChange: function onChange() {}
         }, options.map(function (option) {
           return _react.default.createElement("option", {
             value: option.name
           }, option.name);
-        }))), _react.default.createElement("div", {
+        }), _react.default.createElement("option", {
+          value: subField
+        }, subField))), _react.default.createElement("div", {
           className: "w3-col s5"
         }, _react.default.createElement("div", {
           className: "w3-button w3-text-danger w3-hover-danger w3-border-danger w3-round w3-right"
-        }, "Remove filter")));
-      });
+        }, "Remove")));
+      }), _react.default.createElement("div", {
+        className: "w3-button w3-text-success w3-hover-success w3-border-success w3-round"
+      }, "Add"));
     });
     _this.state = {
       options: []
@@ -38534,10 +38546,27 @@ function (_Component) {
         );
       })
       ) */
-      _react.default.createElement("div", null, _react.default.createElement(_DocPropsElement.default, {
+      _react.default.createElement("div", {
+        className: "w3-container"
+      }, _react.default.createElement(_DocPropsElement.default, {
+        fieldTitle: "name",
         fieldData: _this.grabFieldByName('name')
       }), _react.default.createElement(_DocPropsElement.default, {
+        fieldTitle: "description",
         fieldData: _this.grabFieldByName('description')
+      }), _react.default.createElement(_DocPropsElement.default, {
+        fieldTitle: "reference",
+        fieldData: _this.grabFieldByName('reference')
+      }), _react.default.createElement(_FormSelectField.default, {
+        fieldTitle: "unit of measure",
+        fieldDisabled: false,
+        subFields: ['dummy', 'mock value', 'example'],
+        documents: "articles"
+      }), _react.default.createElement(_FormSelectField.default, {
+        fieldTitle: "prices",
+        fieldDisabled: false,
+        subFields: ['dummy', 'mock value', 'example'],
+        documents: "articles"
       })) : _react.default.createElement("h2", null, "Loading...")), _react.default.createElement("div", {
         className: "w3-bar w3-center w3-margin-bottom"
       }, _react.default.createElement("div", {
@@ -38714,6 +38743,7 @@ function (_Component) {
       var _match$params = match.params,
           documents = _match$params.documents,
           docId = _match$params.docId;
+      console.log(window.location);
       return _react.default.createElement("div", {
         className: "w3-row w3-flex w3-flex-column w3-flex-full-center w3-padding-64"
       }, _react.default.createElement("div", {
@@ -38916,7 +38946,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54551" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65296" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

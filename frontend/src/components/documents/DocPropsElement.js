@@ -1,10 +1,10 @@
 import React from 'react';
 
-const DocPropsElement = ({ fieldData }) => {
+const DocPropsElement = ({ fieldData, fieldTitle }) => {
   return (
-    <div className="w3-container w3-margin-bottom">
+    <div className="w3-margin-bottom">
+      <h4 className="w3-capitalize">{fieldTitle}</h4>
       <label htmlFor={fieldData.name}>
-        <h4 className="w3-capitalize">{fieldData.name}</h4>
         <input
           type="text"
           name={fieldData.name}

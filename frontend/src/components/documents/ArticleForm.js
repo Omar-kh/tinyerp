@@ -1,39 +1,40 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import DocPropsElement from './DocPropsElement';
 import FormSelectField from './FormSelectField';
 
 class DocProps extends Component {
-  constructor() {
-    super();
-    this.state = {
-      fields: []
-    };
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     fields: []
+  //   };
+  // }
 
-  componentDidMount = async () => {
-    const { docId } = this.props;
-    try {
-      const { data } = await axios({
-        method: 'get',
-        url: `http://localhost:4000/articles/${docId}`
-      });
-      const fields =
-        docId === 'new'
-          ? data
-          : data.filter(field => {
-              return field.name !== 'changeHistory';
-            });
-      this.setState({
-        fields
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // componentDidMount = async () => {
+  //   const { docId } = this.props;
+  //   try {
+  //     const { data } = await axios({
+  //       method: 'get',
+  //       url: `http://localhost:4000/articles/${docId}`
+  //     });
+  //     const fields =
+  //       docId === 'new'
+  //         ? data
+  //         : data.filter(field => {
+  //             return field.name !== 'changeHistory';
+  //           });
+  //     this.setState({
+  //       fields
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   grabFieldByName = fieldName => {
-    const { fields } = this.state;
+    const { fields } = this.props;
     return fields.find(field => field.name === fieldName);
   };
 
@@ -62,10 +63,30 @@ class DocProps extends Component {
               );
             })
             ) */
-            <div>
-              <DocPropsElement fieldData={this.grabFieldByName('name')} />
+            <div className="w3-container">
               <DocPropsElement
+                fieldTitle="name"
+                fieldData={this.grabFieldByName('name')}
+              />
+              <DocPropsElement
+                fieldTitle="description"
                 fieldData={this.grabFieldByName('description')}
+              />
+              <DocPropsElement
+                fieldTitle="reference"
+                fieldData={this.grabFieldByName('reference')}
+              />
+              <FormSelectField
+                fieldTitle="unit of measure"
+                fieldDisabled={false}
+                subFields={['dummy', 'mock value', 'example']}
+                documents="articles"
+              />
+              <FormSelectField
+                fieldTitle="prices"
+                fieldDisabled={false}
+                subFields={['dummy', 'mock value', 'example']}
+                documents="articles"
               />
             </div>
           ) : (
@@ -85,4 +106,10 @@ class DocProps extends Component {
   };
 }
 
-export default DocProps;
+const mapStateToProps = state => {
+  return {
+    fields: state.fields
+  };
+};
+
+export default connect(mapStateToProps)(DocProps);

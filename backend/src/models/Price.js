@@ -1,20 +1,16 @@
 import mongoose from 'mongoose';
 
 const priceSchema = new mongoose.Schema({
-  item: {
-    propertyType: 'linkedDoc',
-    value: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Item'
-    },
-    priceList: {
-      propertyType: 'linkedDOc',
-      value: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'PriceList'
-      }
-    }
-  }
+  name: String,
+  article: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Article'
+  },
+  priceList: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Pricelist'
+  },
+  value: Number
 });
 
 export default mongoose.model('Price', priceSchema);

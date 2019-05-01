@@ -79,6 +79,7 @@ class DocView extends Component {
     const { history } = this.state;
     const { match } = this.props;
     const { documents, docId } = match.params;
+    console.log(window.location);
     return (
       <div className="w3-row w3-flex w3-flex-column w3-flex-full-center w3-padding-64">
         <div className="w3-section w3-center">

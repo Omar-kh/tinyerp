@@ -1,5 +1,13 @@
 import Unit from '../models/Unit';
 
+export const findAllUnits = async () => {
+  try {
+    return await Unit.find();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 export const findUnitById = async unitId => {
   try {
     return await Unit.findById(unitId);
@@ -10,7 +18,7 @@ export const findUnitById = async unitId => {
 
 export const saveUnit = async unitData => {
   try {
-    return await Unit.save(unitData);
+    return await Unit.create(unitData);
   } catch (error) {
     throw new Error(error.message);
   }

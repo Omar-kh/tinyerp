@@ -20,11 +20,12 @@ export const getArticleById = async (req, res, next) => {
 };
 
 export const postArticle = async (req, res, next) => {
-  const article = { name: req.body.name, description: req.body.description };
-  const articleUnit = await unitService.findUnitById(
-    '5ca4b7472a1ce725512e8188'
-  );
-  article.unit = articleUnit;
+  const article = {
+    name: req.body.name,
+    description: req.body.description,
+    reference: req.body.reference,
+    unit: '5ca4b7472a1ce725512e8188'
+  };
   try {
     await articleService.createArticle(article);
     res.sendStatus(201);

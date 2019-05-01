@@ -6,7 +6,7 @@ import passport from 'passport';
 import logger from 'morgan';
 import errorHandler from 'errorhandler';
 import path from 'path';
-import { router, articleRouter } from './routes';
+import { router, articleRouter, unitRouter, priceRouter, pricelistRouter } from './routes';
 import config from './config/config';
 import User from './models/User';
 
@@ -75,6 +75,9 @@ app.use((req, res, next) => {
 // The routes themselves
 app.use('/home', router);
 app.use('/articles', articleRouter);
+app.use('/units', unitRouter);
+app.use('/prices', priceRouter);
+app.use('/pricelists', pricelistRouter);
 
 // Use the error handler in development mode
 if (config.env === 'development') {

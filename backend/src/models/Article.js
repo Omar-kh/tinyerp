@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const articleSchema = new mongoose.Schema({
   name: String,
+  reference: String,
   unit: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Unit'
@@ -9,15 +10,8 @@ const articleSchema = new mongoose.Schema({
   description: String,
   prices: [
     {
-      pricelist: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Pricelist'
-      },
-      price: Number,
-      Currency: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Currency'
-      }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Price'
     }
   ],
   changeHistory: [{ changedProperty: String, changeDate: Date }]

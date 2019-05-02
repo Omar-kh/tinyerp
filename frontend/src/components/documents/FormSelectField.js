@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { deleteSubField } from '../../actions/subFieldsActions';
 
 class FormSelectField extends Component {
   constructor() {
@@ -22,6 +24,10 @@ class FormSelectField extends Component {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  handleClick = subField => {
+    this.props.deleteSubField(subField);
   };
 
   render = () => {
@@ -49,9 +55,15 @@ class FormSelectField extends Component {
                 </select>
               </div>
               <div className="w3-col s5">
-                <div className="w3-button w3-text-danger w3-hover-danger w3-border-danger w3-round w3-right">
+                <button
+                  type="button"
+                  className="w3-button w3-text-danger w3-hover-danger w3-border-danger w3-round w3-right"
+                  onClick={() => {
+                    this.handleClick(subField);
+                  }}
+                >
                   Remove
-                </div>
+                </button>
               </div>
             </div>
           );
@@ -64,4 +76,22 @@ class FormSelectField extends Component {
   };
 }
 
-export default FormSelectField;
+const mapStateToProps = state => {
+  return {
+    fields: state.fields,
+    subFields: state.subFields
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteSubField: subField => {
+      dispatch(deleteSubField(subField));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FormSelectField);

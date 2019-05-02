@@ -39,7 +39,7 @@ class DocProps extends Component {
   };
 
   render = () => {
-    const { fields } = this.state;
+    const { fields } = this.props;
     return (
       <div className="w3-section w3-col l8 m10 s11 w3-card w3-row w3-flex w3-flex-column w3-flex-full-center">
         <div className="w3-section">
@@ -79,13 +79,11 @@ class DocProps extends Component {
               <FormSelectField
                 fieldTitle="unit of measure"
                 fieldDisabled={false}
-                subFields={['dummy', 'mock value', 'example']}
                 documents="articles"
               />
               <FormSelectField
                 fieldTitle="prices"
                 fieldDisabled={false}
-                subFields={['dummy', 'mock value', 'example']}
                 documents="articles"
               />
             </div>

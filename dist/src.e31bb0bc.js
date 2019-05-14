@@ -26342,7 +26342,35 @@ function isCrushed() {}
 if ("development" !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
   warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
 }
-},{"symbol-observable":"../../node_modules/redux/node_modules/symbol-observable/es/index.js"}],"../../node_modules/react-redux/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js":[function(require,module,exports) {
+},{"symbol-observable":"../../node_modules/redux/node_modules/symbol-observable/es/index.js"}],"../../node_modules/redux-thunk/es/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+var _default = thunk;
+exports.default = _default;
+},{}],"../../node_modules/react-redux/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39826,40 +39854,7 @@ module.exports.default = axios;
 
 },{"./utils":"../../node_modules/axios/lib/utils.js","./helpers/bind":"../../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../../node_modules/axios/lib/core/Axios.js","./defaults":"../../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../../node_modules/axios/lib/helpers/spread.js"}],"../../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../../node_modules/axios/lib/axios.js"}],"components/documents/DocPropsElement.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var DocPropsElement = function DocPropsElement(_ref) {
-  var fieldData = _ref.fieldData,
-      fieldTitle = _ref.fieldTitle;
-  return _react.default.createElement("div", {
-    className: "w3-margin-bottom"
-  }, _react.default.createElement("h4", {
-    className: "w3-capitalize"
-  }, fieldTitle), _react.default.createElement("label", {
-    htmlFor: fieldData.name
-  }, _react.default.createElement("input", {
-    type: "text",
-    name: fieldData.name,
-    id: fieldData.name,
-    className: "w3-input w3-round w3-border-primary w3-text-primary",
-    readOnly: false,
-    value: fieldData.value ? fieldData.value : undefined
-  })));
-};
-
-var _default = DocPropsElement;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/regenerator-runtime/runtime.js":[function(require,module,exports) {
+},{"./lib/axios":"../../node_modules/axios/lib/axios.js"}],"../../node_modules/regenerator-runtime/runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
@@ -40663,23 +40658,146 @@ function _asyncToGenerator(fn) {
 }
 
 module.exports = _asyncToGenerator;
-},{}],"actions/subFieldsActions.js":[function(require,module,exports) {
+},{}],"actions/constants.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteSubField = void 0;
+exports.DELETE_ARTICLE_SUBFIELD = exports.ADD_ARTICLE_SUBFIELD = exports.GET_ARTICLE_FIELDS = void 0;
+var GET_ARTICLE_FIELDS = 'GET_ARTICLE_FIELDS';
+exports.GET_ARTICLE_FIELDS = GET_ARTICLE_FIELDS;
+var ADD_ARTICLE_SUBFIELD = 'ADD_ARTICLE_SUBFIELD';
+exports.ADD_ARTICLE_SUBFIELD = ADD_ARTICLE_SUBFIELD;
+var DELETE_ARTICLE_SUBFIELD = 'DELETE_ARTICLE_SUBFIELD';
+exports.DELETE_ARTICLE_SUBFIELD = DELETE_ARTICLE_SUBFIELD;
+},{}],"actions/articleActions.js":[function(require,module,exports) {
+"use strict";
 
-var deleteSubField = function deleteSubField(subField) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addArticleSubField = exports.deleteArticleSubField = exports.requestArticle = void 0;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _constants = require("./constants");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var requestArticle = function requestArticle(docId) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee(dispatch) {
+        var _ref2, data, fields;
+
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return (0, _axios.default)({
+                  method: 'get',
+                  url: "http://localhost:4000/articles/".concat(docId)
+                });
+
+              case 3:
+                _ref2 = _context.sent;
+                data = _ref2.data;
+                fields = docId === 'new' ? data : data.filter(function (field) {
+                  return field.name !== 'changeHistory';
+                });
+                dispatch({
+                  type: _constants.GET_ARTICLE_FIELDS,
+                  payload: fields
+                });
+                _context.next = 12;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](0);
+                console.log(_context.t0);
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 9]]);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }()
+  );
+};
+
+exports.requestArticle = requestArticle;
+
+var deleteArticleSubField = function deleteArticleSubField(subField, subFieldArr) {
   return {
-    type: 'DELETE_SUBFIELD',
-    name: subField
+    type: _constants.DELETE_ARTICLE_SUBFIELD,
+    payload: {
+      subField: subField,
+      subFieldArr: subFieldArr
+    }
   };
 };
 
-exports.deleteSubField = deleteSubField;
-},{}],"components/documents/FormSelectField.js":[function(require,module,exports) {
+exports.deleteArticleSubField = deleteArticleSubField;
+
+var addArticleSubField = function addArticleSubField() {
+  return {
+    type: _constants.ADD_ARTICLE_SUBFIELD,
+    payload: ''
+  };
+};
+
+exports.addArticleSubField = addArticleSubField;
+},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","axios":"../../node_modules/axios/index.js","./constants":"actions/constants.js"}],"components/documents/DocPropsElement.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DocPropsElement = function DocPropsElement(_ref) {
+  var fieldData = _ref.fieldData,
+      fieldTitle = _ref.fieldTitle;
+  return _react.default.createElement("div", {
+    className: "w3-margin-bottom"
+  }, _react.default.createElement("h4", {
+    className: "w3-capitalize"
+  }, fieldTitle), _react.default.createElement("label", {
+    htmlFor: fieldData.name
+  }, _react.default.createElement("input", {
+    type: "text",
+    name: fieldData.name,
+    id: fieldData.name,
+    className: "w3-input w3-round w3-border-primary w3-text-primary",
+    readOnly: false,
+    value: fieldData.value ? fieldData.value : undefined
+  })));
+};
+
+var _default = DocPropsElement;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"components/documents/FormSelectField.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40708,8 +40826,6 @@ var _react = _interopRequireWildcard(require("react"));
 var _axios = _interopRequireDefault(require("axios"));
 
 var _reactRedux = require("react-redux");
-
-var _subFieldsActions = require("../../actions/subFieldsActions");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -40767,11 +40883,15 @@ function (_Component) {
         }
       }, _callee, null, [[1, 9]]);
     })));
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleClick", function (subField) {
-      _this.props.deleteSubField(subField);
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleRemoveClick", function (subField) {
+      _this.props.deleteSubField(subField, 'prices');
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleAddClick", function () {
+      _this.props.addSubField();
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "render", function () {
       var options = _this.state.options;
+      console.log(_this.props);
       console.log(options);
       var _this$props = _this.props,
           fieldDisabled = _this$props.fieldDisabled,
@@ -40781,33 +40901,51 @@ function (_Component) {
         className: "w3-margin-bottom"
       }, _react.default.createElement("h4", {
         className: "w3-capitalize"
-      }, fieldTitle), subFields.map(function (subField) {
+      }, fieldTitle), subFields.value.length ? subFields.value.map(function (subField) {
         return _react.default.createElement("div", {
+          key: subField._id,
           className: "w3-row w3-flex w3-flex-full-center w3-margin-bottom"
         }, _react.default.createElement("div", {
+          key: subField._id,
           className: "w3-col s7"
         }, _react.default.createElement("select", {
-          value: subField,
+          defaultValue: subField._id,
+          key: subField._id,
           disabled: fieldDisabled,
           type: "text",
-          className: "w3-select w3-padding w3-text-primary w3-round w3-border-primary w3-full-focus",
-          onChange: function onChange() {}
+          className: "w3-select w3-padding w3-text-primary w3-round w3-border-primary w3-full-focus"
         }, options.map(function (option) {
           return _react.default.createElement("option", {
+            key: option.name,
             value: option.name
           }, option.name);
         }), _react.default.createElement("option", {
-          value: subField
-        }, subField))), _react.default.createElement("div", {
+          key: subField._id,
+          value: subField._id
+        }, subField.name))), _react.default.createElement("div", {
           className: "w3-col s5"
         }, _react.default.createElement("button", {
           type: "button",
           className: "w3-button w3-text-danger w3-hover-danger w3-border-danger w3-round w3-right",
           onClick: function onClick() {
-            _this.handleClick(subField);
+            _this.props.deleteSubField(subField, fieldTitle);
           }
         }, "Remove")));
-      }), _react.default.createElement("div", {
+      }) : _react.default.createElement("div", {
+        className: "w3-row w3-flex w3-flex-full-center w3-margin-bottom"
+      }, _react.default.createElement("div", {
+        className: "w3-col s7"
+      }, _react.default.createElement("select", {
+        value: "No data found",
+        disabled: true,
+        type: "text",
+        className: "w3-select w3-padding w3-text-primary w3-round w3-border-primary w3-full-focus",
+        onChange: function onChange() {}
+      }, _react.default.createElement("option", {
+        value: "No Data"
+      }, "No Data")))), _react.default.createElement("button", {
+        type: "button",
+        onClick: _this.handleAddClick,
         className: "w3-button w3-text-success w3-hover-success w3-border-success w3-round"
       }, "Add"));
     });
@@ -40822,23 +40960,14 @@ function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    fields: state.fields,
-    subFields: state.subFields
+    fields: state.articleReducer.fields
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    deleteSubField: function deleteSubField(subField) {
-      dispatch((0, _subFieldsActions.deleteSubField)(subField));
-    }
-  };
-};
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormSelectField);
+var _default = (0, _reactRedux.connect)(mapStateToProps)(FormSelectField);
 
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","react-redux":"../../node_modules/react-redux/es/index.js","../../actions/subFieldsActions":"actions/subFieldsActions.js"}],"components/documents/ArticleForm.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","react-redux":"../../node_modules/react-redux/es/index.js"}],"components/documents/ArticleForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40860,9 +40989,9 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _axios = _interopRequireDefault(require("axios"));
-
 var _reactRedux = require("react-redux");
+
+var _articleActions = require("../../actions/articleActions");
 
 var _DocPropsElement = _interopRequireDefault(require("./DocPropsElement"));
 
@@ -40889,6 +41018,11 @@ function (_Component) {
     }
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(DocProps)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "componentDidMount", function () {
+      var docId = _this.props.docId;
+
+      _this.props.requestArticle(docId);
+    });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "grabFieldByName", function (fieldName) {
       var fields = _this.props.fields;
       return fields.find(function (field) {
@@ -40897,6 +41031,13 @@ function (_Component) {
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "render", function () {
       var fields = _this.props.fields;
+      var prices = _this.grabFieldByName('prices') || {
+        name: 'prices',
+        value: []
+      }; // if (prices.value.length) {
+      //   prices.value = prices.value.map(price => price.name);
+      // }
+
       return _react.default.createElement("div", {
         className: "w3-section w3-col l8 m10 s11 w3-card w3-row w3-flex w3-flex-column w3-flex-full-center"
       }, _react.default.createElement("div", {
@@ -40905,24 +41046,7 @@ function (_Component) {
         className: "w3-center"
       }, "Properties")), _react.default.createElement("div", {
         className: "w3-col l6 m8 w3-margin-bottom"
-      }, fields.length ?
-      /* (
-      fields.map(field => {
-        return (
-          <div>
-            <DocPropsElement
-              fieldData={this.grabFieldByName(field.name)}
-            />
-            <FormSelectField
-              subFields={[1]}
-              fieldDisabled={false}
-              documents="articles"
-            />
-          </div>
-        );
-      })
-      ) */
-      _react.default.createElement("div", {
+      }, fields.length ? _react.default.createElement("div", {
         className: "w3-container"
       }, _react.default.createElement(_DocPropsElement.default, {
         fieldTitle: "name",
@@ -40936,11 +41060,27 @@ function (_Component) {
       }), _react.default.createElement(_FormSelectField.default, {
         fieldTitle: "unit of measure",
         fieldDisabled: false,
-        documents: "articles"
+        documents: "articles",
+        subFields: {
+          name: 'unit of measure',
+          value: [{
+            _id: '321654878qsdsd',
+            name: 'mock'
+          }, {
+            _id: 'qsd56486dsffdg213',
+            name: 'dummy'
+          }, {
+            _id: 'aze879865bn312',
+            name: 'data'
+          }]
+        },
+        deleteSubField: _this.props.deleteArticleSubField
       }), _react.default.createElement(_FormSelectField.default, {
         fieldTitle: "prices",
         fieldDisabled: false,
-        documents: "articles"
+        documents: "articles",
+        subFields: prices,
+        deleteSubField: _this.props.deleteArticleSubField
       })) : _react.default.createElement("h2", null, "Loading...")), _react.default.createElement("div", {
         className: "w3-bar w3-center w3-margin-bottom"
       }, _react.default.createElement("div", {
@@ -40957,14 +41097,28 @@ function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    fields: state.fields
+    fields: state.articleReducer.fields
   };
 };
 
-var _default = (0, _reactRedux.connect)(mapStateToProps)(DocProps);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestArticle: function requestArticle(docId) {
+      dispatch((0, _articleActions.requestArticle)(docId));
+    },
+    deleteArticleSubField: function deleteArticleSubField(subField, subFieldArr) {
+      dispatch((0, _articleActions.deleteArticleSubField)(subField, subFieldArr));
+    },
+    addArticleSubField: function addArticleSubField() {
+      dispatch((0, _articleActions.addArticleSubField)());
+    }
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DocProps);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","react-redux":"../../node_modules/react-redux/es/index.js","./DocPropsElement":"components/documents/DocPropsElement.js","./FormSelectField":"components/documents/FormSelectField.js"}],"components/documents/InvoiceForm.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","react-redux":"../../node_modules/react-redux/es/index.js","../../actions/articleActions":"actions/articleActions.js","./DocPropsElement":"components/documents/DocPropsElement.js","./FormSelectField":"components/documents/FormSelectField.js"}],"components/documents/InvoiceForm.js":[function(require,module,exports) {
 
 },{}],"components/documents/OrderForm.js":[function(require,module,exports) {
 
@@ -41282,7 +41436,43 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./MainContent":"containers/MainContent.js","./FullPage":"containers/FullPage.js","../components/Navbar":"components/Navbar.js","../components/Homescreen":"components/Homescreen.js","../components/Docslist":"components/Docslist.js","../components/Sidebar":"components/Sidebar.js","../components/documents/DocView":"components/documents/DocView.js"}],"../../node_modules/@babel/runtime/helpers/objectSpread.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/classCallCheck":"../../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/possibleConstructorReturn":"../../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/assertThisInitialized":"../../node_modules/@babel/runtime/helpers/assertThisInitialized.js","@babel/runtime/helpers/inherits":"../../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./MainContent":"containers/MainContent.js","./FullPage":"containers/FullPage.js","../components/Navbar":"components/Navbar.js","../components/Homescreen":"components/Homescreen.js","../components/Docslist":"components/Docslist.js","../components/Sidebar":"components/Sidebar.js","../components/documents/DocView":"components/documents/DocView.js"}],"../../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":[function(require,module,exports) {
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  }
+}
+
+module.exports = _arrayWithoutHoles;
+},{}],"../../node_modules/@babel/runtime/helpers/iterableToArray.js":[function(require,module,exports) {
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+},{}],"../../node_modules/@babel/runtime/helpers/nonIterableSpread.js":[function(require,module,exports) {
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+module.exports = _nonIterableSpread;
+},{}],"../../node_modules/@babel/runtime/helpers/toConsumableArray.js":[function(require,module,exports) {
+var arrayWithoutHoles = require("./arrayWithoutHoles");
+
+var iterableToArray = require("./iterableToArray");
+
+var nonIterableSpread = require("./nonIterableSpread");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+},{"./arrayWithoutHoles":"../../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js","./iterableToArray":"../../node_modules/@babel/runtime/helpers/iterableToArray.js","./nonIterableSpread":"../../node_modules/@babel/runtime/helpers/nonIterableSpread.js"}],"../../node_modules/@babel/runtime/helpers/objectSpread.js":[function(require,module,exports) {
 var defineProperty = require("./defineProperty");
 
 function _objectSpread(target) {
@@ -41305,15 +41495,19 @@ function _objectSpread(target) {
 }
 
 module.exports = _objectSpread;
-},{"./defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js"}],"reducers/rootReducer.js":[function(require,module,exports) {
+},{"./defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js"}],"reducers/reducers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.articleReducer = void 0;
+
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
 var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+
+var _constants = require("../actions/constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41331,25 +41525,42 @@ var initState = {
   subFields: ['dummy', 'mock value', 'example']
 };
 
-var rootReducer = function rootReducer() {
+var articleReducer = function articleReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
-  if (action.type === 'DELETE_SUBFIELD') {
-    var newSubFields = state.subFields.filter(function (subField) {
-      return action.name !== subField;
-    });
-    return (0, _objectSpread2.default)({}, state, {
-      subFields: newSubFields
-    });
-  }
+  switch (action.type) {
+    case _constants.GET_ARTICLE_FIELDS:
+      return (0, _objectSpread2.default)({}, state, {
+        fields: action.payload
+      });
 
-  return state;
+    case _constants.ADD_ARTICLE_SUBFIELD:
+      return (0, _objectSpread2.default)({}, state, {
+        subFields: [].concat((0, _toConsumableArray2.default)(state.subFields), [''])
+      });
+
+    case _constants.DELETE_ARTICLE_SUBFIELD:
+      var updatedFields = state.fields.filter(function (field) {
+        return field.name !== action.payload.subFieldArr;
+      });
+      var updatedSubFields = state.fields.find(function (field) {
+        return field.name === action.payload.subFieldArr;
+      });
+      updatedSubFields.value = updatedSubFields.value.filter(function (elem) {
+        return elem !== action.payload.subField;
+      });
+      return (0, _objectSpread2.default)({}, state, {
+        fields: [].concat((0, _toConsumableArray2.default)(updatedFields), [updatedSubFields])
+      });
+
+    default:
+      return state;
+  }
 };
 
-var _default = rootReducer;
-exports.default = _default;
-},{"@babel/runtime/helpers/objectSpread":"../../node_modules/@babel/runtime/helpers/objectSpread.js"}],"index.js":[function(require,module,exports) {
+exports.articleReducer = articleReducer;
+},{"@babel/runtime/helpers/toConsumableArray":"../../node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/objectSpread":"../../node_modules/@babel/runtime/helpers/objectSpread.js","../actions/constants":"actions/constants.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -41360,20 +41571,25 @@ require("./styles/main.css");
 
 var _redux = require("redux");
 
+var _reduxThunk = _interopRequireDefault(require("redux-thunk"));
+
 var _reactRedux = require("react-redux");
 
 var _App = _interopRequireDefault(require("./containers/App"));
 
-var _rootReducer = _interopRequireDefault(require("./reducers/rootReducer"));
+var _reducers = require("./reducers/reducers");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_rootReducer.default);
+var rootReducer = (0, _redux.combineReducers)({
+  articleReducer: _reducers.articleReducer
+});
+var store = (0, _redux.createStore)(rootReducer, (0, _redux.applyMiddleware)(_reduxThunk.default));
 
 _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
   store: store
 }, _react.default.createElement(_App.default, null)), document.getElementById('root'));
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","./styles/main.css":"styles/main.css","redux":"../../node_modules/redux/es/redux.js","react-redux":"../../node_modules/react-redux/es/index.js","./containers/App":"containers/App.js","./reducers/rootReducer":"reducers/rootReducer.js"}],"C:/Users/omark/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","./styles/main.css":"styles/main.css","redux":"../../node_modules/redux/es/redux.js","redux-thunk":"../../node_modules/redux-thunk/es/index.js","react-redux":"../../node_modules/react-redux/es/index.js","./containers/App":"containers/App.js","./reducers/reducers":"reducers/reducers.js"}],"C:/Users/omark/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -41401,7 +41617,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56250" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55921" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

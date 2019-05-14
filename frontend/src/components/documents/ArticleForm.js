@@ -1,37 +1,18 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import {
+  requestArticle,
+  deleteArticleSubField,
+  addArticleSubField
+} from '../../actions/articleActions';
 import DocPropsElement from './DocPropsElement';
 import FormSelectField from './FormSelectField';
 
 class DocProps extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     fields: []
-  //   };
-  // }
-
-  // componentDidMount = async () => {
-  //   const { docId } = this.props;
-  //   try {
-  //     const { data } = await axios({
-  //       method: 'get',
-  //       url: `http://localhost:4000/articles/${docId}`
-  //     });
-  //     const fields =
-  //       docId === 'new'
-  //         ? data
-  //         : data.filter(field => {
-  //             return field.name !== 'changeHistory';
-  //           });
-  //     this.setState({
-  //       fields
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  componentDidMount = () => {
+    const { docId } = this.props;
+    this.props.requestArticle(docId);
+  };
 
   grabFieldByName = fieldName => {
     const { fields } = this.props;
@@ -40,6 +21,13 @@ class DocProps extends Component {
 
   render = () => {
     const { fields } = this.props;
+    const prices = this.grabFieldByName('prices') || {
+      name: 'prices',
+      value: []
+    };
+    // if (prices.value.length) {
+    //   prices.value = prices.value.map(price => price.name);
+    // }
     return (
       <div className="w3-section w3-col l8 m10 s11 w3-card w3-row w3-flex w3-flex-column w3-flex-full-center">
         <div className="w3-section">
@@ -47,22 +35,6 @@ class DocProps extends Component {
         </div>
         <div className="w3-col l6 m8 w3-margin-bottom">
           {fields.length ? (
-            /* (
-            fields.map(field => {
-              return (
-                <div>
-                  <DocPropsElement
-                    fieldData={this.grabFieldByName(field.name)}
-                  />
-                  <FormSelectField
-                    subFields={[1]}
-                    fieldDisabled={false}
-                    documents="articles"
-                  />
-                </div>
-              );
-            })
-            ) */
             <div className="w3-container">
               <DocPropsElement
                 fieldTitle="name"
@@ -80,11 +52,22 @@ class DocProps extends Component {
                 fieldTitle="unit of measure"
                 fieldDisabled={false}
                 documents="articles"
+                subFields={{
+                  name: 'unit of measure',
+                  value: [
+                    { _id: '321654878qsdsd', name: 'mock' },
+                    { _id: 'qsd56486dsffdg213', name: 'dummy' },
+                    { _id: 'aze879865bn312', name: 'data' }
+                  ]
+                }}
+                deleteSubField={this.props.deleteArticleSubField}
               />
               <FormSelectField
                 fieldTitle="prices"
                 fieldDisabled={false}
                 documents="articles"
+                subFields={prices}
+                deleteSubField={this.props.deleteArticleSubField}
               />
             </div>
           ) : (
@@ -106,8 +89,25 @@ class DocProps extends Component {
 
 const mapStateToProps = state => {
   return {
-    fields: state.fields
+    fields: state.articleReducer.fields
   };
 };
 
-export default connect(mapStateToProps)(DocProps);
+const mapDispatchToProps = dispatch => {
+  return {
+    requestArticle: docId => {
+      dispatch(requestArticle(docId));
+    },
+    deleteArticleSubField: (subField, subFieldArr) => {
+      dispatch(deleteArticleSubField(subField, subFieldArr));
+    },
+    addArticleSubField: () => {
+      dispatch(addArticleSubField());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DocProps);

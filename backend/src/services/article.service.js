@@ -43,7 +43,9 @@ export const findArticleByName = async article => {
 export const findArticleById = async articleId => {
   try {
     let article = await Article.findById(articleId).select('-_id -__v');
-    article = await article.populate('unit', '-_id').execPopulate();
+    article = await article
+      .populate({ path: 'prices', select: 'name' })
+      .execPopulate();
     article = article.toObject();
     return Object.keys(article).map(key => {
       return {
